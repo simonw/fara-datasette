@@ -1,0 +1,23 @@
+{
+    "title": "The Foreign Agents Registration Act",
+    "source": "The U.S. Department of Justice",
+    "source_url": "https://efile.fara.gov/ords/f?p=API:BULKDATA",
+    "databases": {
+        "fara": {
+            "tables": {
+                "FARA_All_Registrants": {
+                    "facets": ["State", "City", "Address_1"]
+                },
+                "FARA_All_ForeignPrincipals": {
+                    "facets": ["Foreign_Principal", "Country/Location_Represented", "Registrant_Name", "City", "State"]
+                },
+                "FARA_All_RegistrantDocs": {
+                    "facets": ["Document_Type", "Registrant_Name", "Foreign_Principal_Name", "Foreign_Principal_Country"]
+                },
+                "FARA_All_ShortForms": {
+                    "facets": ["Registrant_Name", "Registration_Number", "City", "State"]
+                }
+            }
+        }
+    }
+}
