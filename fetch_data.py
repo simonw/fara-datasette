@@ -4,6 +4,9 @@ from urllib.request import urlopen
 import csv
 import sqlite_utils
 
+pks = {
+    "FARA_All_Registrants": "Registration_Number"
+}
 
 fts_columns = {
     "FARA_All_Registrants": ["Name", "Address_1", "Address_2"],
@@ -28,7 +31,6 @@ def make_doc(data):
             # Convert 06/11/2019 to yyyy-mm-dd
             mm, dd, yyyy = value.split("/")
             value = "{}-{}-{}".format(yyyy, mm, dd)
-        key = key.replace(" ", "_")
         new_data[key] = value
     return new_data
 
@@ -46,10 +48,14 @@ if __name__ == "__main__":
         zipfile = ZipFile(BytesIO(resp.read()))
         filename = zipfile.namelist()[0]
         reader = csv.reader(StringIO(zipfile.open(filename).read().decode("utf-8")))
-        headers = next(reader)
+        headers = [h.replace(" ", "_") for h in next(reader)]
         docs = (make_doc(dict(zip(headers, row))) for row in reader)
         table = filename.replace(".csv", "")
-        db[table].insert_all(docs)
+        # Using ignore=True because the CSVs contained a duplicate record
+        db[table].insert_all(docs, pk=pks.get(table), ignore=True)
+        # If any column is Registration_Number, set up foreign key
+        if "Registration_Number" in headers:
+            db[table].add_foreign_key("Registration_Number", "FARA_All_Registrants")
         # Set up FTS
         if table in fts_columns:
             db[table].enable_fts(fts_columns[table])
