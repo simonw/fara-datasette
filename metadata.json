@@ -2,6 +2,7 @@
     "title": "The Foreign Agents Registration Act",
     "source": "The U.S. Department of Justice",
     "source_url": "https://efile.fara.gov/ords/f?p=API:BULKDATA",
+    "about_url": "https://github.com/simonw/fara-datasette",
     "databases": {
         "fara": {
             "tables": {
