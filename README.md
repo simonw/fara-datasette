@@ -21,4 +21,5 @@ Currently deployed manually using:
     $ datasette publish now fara.db \
         -m metadata.json \
         -n fara \
-        --alias fara.datasettes.com
+        --alias fara.datasettes.com \
+        --extra-options "--config facet_time_limit_ms:1000"
