@@ -1,8 +1,12 @@
 # fara-datasette
 
-https://fara.datasettes.com/
+> ❗️**Obsolete**
+>
+> This repository has been replaced by https://github.com/simonw/fara-history
 
-This code pulls the latest CSVs from https://efile.fara.gov/ords/f?p=API:BULKDATA and loads them into Datasette.
+This code pulls the latest CSVs from https://efile.fara.gov/ords/f?p=API:BULKDATA and loads them into a SQLite database suitable for publishing using [Datasette](https://datasette.readthedocs.io/)
+
+
 
 ## Running the code
 
@@ -13,15 +17,3 @@ Create the `fara.db` file by running `python fetch_data.py`
 Start exploring it in [Datasette](https://github.com/simonw/datasette) using:
 
     datasette fara.db -m metadata.json
-
-## How I deployed it
-
-Currently deployed manually using:
-
-    $ datasette publish now fara.db \
-        -m metadata.json \
-        -n fara \
-        --branch=master \
-        --install=datasette-vega \
-        --alias fara.datasettes.com \
-        --extra-options "--config facet_time_limit_ms:1000"
